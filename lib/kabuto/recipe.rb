@@ -26,20 +26,10 @@ module Kabuto
     end
 
     def process page, meta = nil
-      if @params[:each]
-        page.xpath(@params[:each]).map{ |n| process_one(n, meta) }
-      elsif @params[:each_css]
-        page.css(@params[:each_css]).map{ |n| process_one(n, meta) }
-      else
-        process_one(page, meta)
-      end
-    end
-
-    def process_one node, meta = nil
       result = Hashie::Mash.new
 
       items.each do |name, item|
-        result[name] = item.process(node, meta)
+        result[name] = item.process(page, meta)
       end
 
       result
