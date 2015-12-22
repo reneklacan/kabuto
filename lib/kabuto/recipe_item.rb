@@ -33,7 +33,7 @@ module Kabuto
         page.xpath(value).text.gsub(/\u00a0/, ' ').strip
       when :lambda, :proc
         value.call(page, meta)
-      when :const, :static
+      when :const
         value
       end
     end

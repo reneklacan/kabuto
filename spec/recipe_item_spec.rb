@@ -118,10 +118,44 @@ describe Kabuto::RecipeItem do
       end
     end
 
+    context ':const type' do
+      let(:args) { [:const, 'foo'] }
+
+      it 'returns constant' do
+        expect(subject.process(nil, nil)).to eq 'foo'
+      end
+    end
+
     context ':unkwown type' do
       it 'raises exception' do
         expect{
           Kabuto::RecipeItem.new(:unknown, :whatever)
+        }.to raise_error
+      end
+    end
+
+    context 'conversion to int' do
+      let(:args) { [:const, 'bbb123aaa', :int] }
+
+      it 'converts value to int' do
+        expect(subject.process(nil, nil)).to eq 123
+      end
+    end
+
+    context 'conversion to float' do
+      let(:args) { [:const, 'bbb123,123aaa', :float] }
+
+      it 'converts value to float' do
+        expect(subject.process(nil, nil)).to eq 123.123
+      end
+    end
+
+    context 'invalid conversion' do
+      let(:args) { [:const, 'bar', :foo] }
+
+      it 'converts value to float' do
+        expect{
+          subject.process(nil, nil)
         }.to raise_error
       end
     end

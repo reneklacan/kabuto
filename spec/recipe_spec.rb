@@ -2,13 +2,24 @@
 
 describe Kabuto::Recipe do
   let(:recipe) { Kabuto::Recipe.new }
-  let(:page) { }
+  let(:page) { double(:page) }
   let(:meta) { Hashie::Mash.new(id: '123', apple: 'green') }
 
   describe '#initialize' do
     it 'sets values' do
       expect(recipe.items).to eq Hashie::Mash.new
-      expect(recipe.nested).to be_falsy
+      expect(recipe.nested).to eq false
+    end
+
+    it 'initializes with block' do
+      recipe = described_class.new do
+        foo :css, '.value'
+      end
+
+      expect(recipe.items.count).to eq 1
+      expect(recipe.items.keys[0]).to eq 'foo'
+      expect(recipe.items.values[0].type).to eq :css
+      expect(recipe.items.values[0].value).to eq '.value'
     end
   end
 
@@ -18,9 +29,8 @@ describe Kabuto::Recipe do
 
       expect(recipe.items.count).to eq 1
       expect(recipe.items.keys[0]).to eq 'normal_attr'
-      expect(recipe.items.values[0]).to be_a Kabuto::RecipeItem
       expect(recipe.items.values[0].type).to eq :css
-      expect(recipe.items.values[0].value).to be_a String
+      expect(recipe.items.values[0].value).to eq '.value'
       expect(recipe.nested?).to eq false
     end
 
@@ -31,7 +41,6 @@ describe Kabuto::Recipe do
 
       expect(recipe.items.count).to eq 1
       expect(recipe.items.keys[0]).to eq 'nested_attr'
-      expect(recipe.items.values[0]).to be_a Kabuto::RecipeItem
       expect(recipe.items.values[0].type).to eq :recipe
       expect(recipe.items.values[0].value).to be_a Kabuto::Recipe
       expect(recipe.nested?).to eq true
