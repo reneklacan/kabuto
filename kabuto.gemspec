@@ -22,6 +22,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'json', '~> 1.8'
 
   s.add_development_dependency 'rspec', '~> 3.4'
-  s.add_development_dependency 'pry-byebug', '~> 2.0'
   s.add_development_dependency 'rspec-mocks', '~> 3.4'
+  s.add_development_dependency 'pry-byebug', '~> 2.0'
 end

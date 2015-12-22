@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+require 'kabuto/recipe_item'
 
 module Kabuto
 
