@@ -1,0 +1,12 @@
+/.bundle
+/.ruby-version
+
+/log
+/Gemfile.lock
+/cache
+/coverage
+
+tags
+*.swp
+*.swo
+*.gem
