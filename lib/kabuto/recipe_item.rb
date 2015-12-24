@@ -32,7 +32,7 @@ module Kabuto
       when :xpath
         page.xpath(value).text.gsub(/\u00a0/, ' ').strip
       when :lambda, :proc
-        value.call(page, meta)
+        Module.new.instance_exec([page, meta], &value)
       when :const
         value
       end
