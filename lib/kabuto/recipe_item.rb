@@ -16,7 +16,7 @@ module Kabuto
     end
 
     def process page, meta
-      convert(get(page, meta))
+      convert(get(page, Hashie::Mash.new(meta)))
     end
 
     protected
