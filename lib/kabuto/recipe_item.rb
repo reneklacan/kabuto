@@ -45,6 +45,7 @@ module Kabuto
       when nil then v
       when :int then v[/\d+/].to_i
       when :float then v.gsub(',', '.')[/\d+(\.\d+)?/].to_f
+      when :date then Date.parse(v).iso8601
       else raise "Unknown conversion type '#{@convert_to}'"
       end
     end
